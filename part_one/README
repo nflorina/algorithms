@@ -1,0 +1,60 @@
+---------------------------------------------------------------------
+                          TEMA 1 - PA
+                    Nastasoiu Florina 321CC
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+                      PROBLEMA 1 - FRATI
+---------------------------------------------------------------------
+          Pentru aceasta problema am sortat in doua moduri diferite
+lista de perechi (jocuri, benzi) primita la citire. Strategie a fost
+urmatoarea: cand se realizeaza o alegere, jucatorul curent urmareste
+maximizarea castigului sau si minimizarea castigului adversarului; in
+plus, se stie ca Jon doreste mai multe jocuri, iar Sam mai multe benzi;
+          => asadar, aceasta echivaleaza cu alegerea unui tuplu de suma
+maxima la pasul curent, iar in cazul in care mai multe astfel de perechi
+au o suma egala:
+          => se trece la conditia secunda : maximizarea obiectelor
+preferare pentru fiecare din cei doi
+          Alegerile propriu-zise se vor realiza in ordinea sortarii si
+se vor elimina din ambele liste, pentru ca i se ia dreptul si celuilat
+jucator sa mai aiba o alegere viitoare de acest gen.
+----------------------------------------------------------------------
+                    PROBLEMA 3 - Planificare
+----------------------------------------------------------------------
+        Am observat ca aceasta problema are o oarecare asemanare cu
+problemele de tip PODM, in sensul ca acest tip de problema presupune
+ca o putem formula ca pe o problema de tip subinterval [i,j].
+        Ca sa putem gasi optimul pentru calcului lipsei (care, in fond
+porneste de la un subset de 2 perioade ), va trebuie sa luam in calcul
+toate combinatiile de 2 subproblemele care ar fi putut genera solutie
+pentru probleme [i,j].
+      Matricea de stari dp[][] este completata intial pe diagonala
+principala cu lipsurile derivate din fiecare perioada (daca ar fi singura
+in concurs ), urmand completarea ei pe triunghiul superior matriceal.
+Restul are o valoarea infinita pentru a putea compara mai apoi. Se mai tine
+cont de faptul ca fiecare ultim element genereaza un cost 0.
+     Pentru fiecare stare dp[i][j] trebuie verificat daca sumele generate
+de perioade si pauze cumuleaza un concurs sau nu. In cazul afirmativ,
+matricea se va completa cu aceste valori, daca nu, se va trece la partea
+cu subseturi pentru a determina minimul in lipsa : se considera fiecare
+divizare in 2 subprobleme, data de intermediarul k; [i,k] si [k+1,j] sunt
+cele 2 subprobleme pentru care cunoastem solutiile => atunci o solutie pentru
+[i,j] se poate obtine imbinandu-le pe cele doua.
+      Scopul este sa minimizez costul lipsei, deci vom itera prin toate
+valorile k posibile, vom alege pe cea care minimizeaza solutia problemei [i,j].
+      In fond, privind imaginea de ansamblu, adica cum se completeaza matricea,
+obervam ca matricea dp se completeaza diagonala cu diagonala exact ca la
+problemele precum parantezarea matricelor.
+--------------------------------------------------------------------------
+                      PROBLEMA 4 - NUMARATOAREA
+--------------------------------------------------------------------------
+        Am abordat problema recursiv, incercand sa construiesc intr-un
+acumulator variantele de sume.
+        Metoda getCombination apeleaza cu acest acumulator o metoda
+recursiva care va construi acumulatorul, va verifica pentru fiecare apel
+daca suma s-a atins si daca tagetul (numarul de element) este corect.
+Se adauga in caz pozitiv si se reapeleaza cu noi indici in caz negativ.
+        Nu e o metoda eficienta pentru ca am incercat sa stochez toate
+valorile, urmand sa le aranjez cumva. Insa sortarea ar fi fost foarte
+ineficienta, de aceea ar trebui modificat apelul recursiv din cadrul
+lui while si extrasa doar suma de pe pozitia i.

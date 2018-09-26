@@ -1,0 +1,56 @@
+-------------------------------------------------------------------------------
+                          TEMA 2 - PA - GRAFURI
+                            NASTASOIU FLORINA
+-------------------------------------------------------------------------------
+=========================== PROBLEMA 1 - Minlexbfs ============================
+            Pentru aceasta problema era nevoie sa traversam in latime graful, cu
+mentiunea ca selectia pe nivel trebuia facuta lexicografic. Asadar, am foloist
+algoritmul BFS modificat. La pasul de selectie al nodurilor adiacente, inainte
+sa aleg, am sortat vecinii in ordine naturala ( echivalentul lexicografic in
+cazul nostru ) si apoi am ales din ei.
+            Complexitatea algorimului BFS este, in mod normal, O(V + E), unde
+V e numarul de noduri si E e numarul de muchii, iar complexitatea spatiala este
+O(V). In cazul nostru, se adauga sortarea tuturor nodurilor vecine. Complexitatea
+temporala a sortarii este O(n * logn) si am realizat sortarea pentru fiecare
+lista de vecini. Sa presupunem ca erau m vecini care erau sortati, deci
+O( m * log m) e complexitatea acestei sortari. Rezulta de aici O( V * log V + E).
+
+======================== PROBLEMA 3 - RTD =====================================
+          Mentionez ca aceasta a fost problema mea preferata si, desi nu merge
+prea bine, mi-a placut sa ma gandesc si sa implementez. (Cazurile si testele
+prea mari nu m-au ajutat sa imi dau seama unde gresesc exact, desi cred ca
+implementarea mea era aproape perfecta ).
+          Am folosit algoritmul lui Dijkstra pentru a afla shortest path-ul
+zarului, cu mentiunea ca am remodelat nodul. Un nod in cazul de fata contine:
+coordonatele i si j (echivalentul nodului intr-un graf normal), costul insumat
+pana la momentul respectiv (cumuland rostogolirile anterioare, daca e cazul,
+sau doar fata tangenta la pamanant, daca nu e cazul), pozitia root, adica
+pozitia de unde tocmai s-a rostogolit pentru a evita intoarcerea din punctul
+plecarii si cele 6 fete cu valorile lor.
+          Schimbarile au fost produse pentru ca, spre deosebire de un graf
+normal, era imposibil de retinut intr-o simpla lista de adiacenta care ajuta
+enorm la managementul indicilor in array, asa ca am folosit un camp root in
+clasa nod care ma ajuta pentru directie. In plus, dupa fiecare rostogolire,
+campurile down, top, front, back, left, right se schimba in functie de rotatie.
+          Am folosit metode pentru simularea rotatiei in cele 4 directii si
+alta pentru aflarea vecinilor in functie de casutele blocate sau de mentiunea
+de mai sus cu root(niciodata sa nu considere vecin punctul din care tocmai a
+plecat).
+          Complexitatea temporala la Dijkstra este de O( E + V * log V), dar in
+cazul meu ajunge la O ( E + V^2 * log V) din pricina generarii vecinilor si
+mutarilor efectuate.
+          Complexitatea spatiala ramane O(V ^ 2).
+
+======================== PROBLEMA BONUS - REVEDGES ============================
+      Pentru problema aceasta am folosit Floyd-Warshall. Ideea e una destul de
+simpla avand in vedere ca avem un graf orientat, dar fara costuri fixate.
+Asa ca am presupus ca toate muchiile cu orientarea de la x -> y vor avea un
+cost 0, iar muchia opusa y -> x va avea costul 1. Asta ma va ajuta in felul
+urmator: voi presupune, de fapt, ca exista drumuri intre toate nodurile.
+Cele reale sunt cu cost 0, cele false sunt cu cost 1, asa ca la realizarea
+unui shortest path, alegerea unei muchii false (inexistente initial), imi va
+aduce un cost 1.
+      La final, shortest path-ul va reprezenta, de fapt, numarul de muchii
+false folosite de mine, adica cele cu cost 1.
+      Complexitatea temporala ramane O(n ^ 3).
+      Complexitatea spatiala ramane O(V ^ 2).
